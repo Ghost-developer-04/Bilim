@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('location_id')->index();
             $table->foreign('location_id')->references('id')->on('locations')->cascadeOnDelete();
             $table->string('name');
+            $table->string('slug')->unique();
         });
     }
 

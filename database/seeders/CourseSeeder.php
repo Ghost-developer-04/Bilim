@@ -18,7 +18,7 @@ class CourseSeeder extends Seeder
             ['name' => 'Maths for kids', 'price' => '1200'],
             ['name' => 'Maths for juniors', 'price' => '1400'],
             ['name' => 'Maths', 'price' => '1600'],
-            ['name' => 'China', 'price' => '1200'],
+            ['name' => 'Chinese', 'price' => '1200'],
             ['name' => 'Spain', 'price' => '1400'],
             ['name' => 'Russian for kids', 'price' => '1100'],
             ['name' => 'Russian for juniors', 'price' => '1300'],
@@ -33,6 +33,7 @@ class CourseSeeder extends Seeder
         foreach ($courses as $course) {
             Course::create([
                 'name' => $course['name'],
+                'slug' => str($course['name'])->slug(),
                 'price' => $course['price'],
             ]);
         }

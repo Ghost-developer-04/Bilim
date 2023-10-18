@@ -21,6 +21,7 @@ class SeasonSeeder extends Seeder
         foreach ($seasons as $season) {
             Season::create([
                 'name' => $season,
+                'slug' => str($season)->slug(),
             ]);
         }
     }

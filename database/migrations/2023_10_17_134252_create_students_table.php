@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('full_name')->unique();
             $table->date('birthday');
             $table->string('phone');
             $table->string('phone_sms');

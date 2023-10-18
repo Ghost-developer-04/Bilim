@@ -20,6 +20,7 @@ class SessionSeeder extends Seeder
         foreach ($sessions as $session) {
             Session::create([
                 'name' => $session,
+                'slug' => str($session)->slug(),
             ]);
         }
     }

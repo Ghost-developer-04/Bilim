@@ -37,6 +37,7 @@ class ClassroomSeeder extends Seeder
             Classroom::create([
                 'location_id' => Location::inRandomOrder()->first()->id,
                 'name' => $classroom,
+                'slug' => str($classroom)->slug(),
             ]);
         }
     }

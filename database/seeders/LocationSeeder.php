@@ -20,6 +20,7 @@ class LocationSeeder extends Seeder
         foreach ($locations as $location) {
             Location::create([
                 'name' => $location,
+                'slug' => str($location)->slug(),
             ]);
         }
     }

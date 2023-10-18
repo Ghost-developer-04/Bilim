@@ -18,14 +18,14 @@ class RegistrationFactory extends Factory
     {
         $student = Student::inRandomOrder()->first();
         $lesson = Lesson::inRandomOrder()->first();
-        $price = Course::inRandomOrder()->first();
+        $price = $lesson->course->price;
         $payment_method = fake()->boolean();
         $payment_status = fake()->boolean(80);
 
         return [
             'student_id' => $student->id,
             'lesson_id' => $lesson->id,
-            'price' => $price->price,
+            'price' => $price,
             'payment_method' => $payment_method == True ? fake()->creditCardType() : 'Paid by cash',
             'payment_status' => $payment_status,
         ];
