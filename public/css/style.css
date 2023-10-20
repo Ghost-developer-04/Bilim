@@ -1,0 +1,34 @@
+
+
+.toggle-border {
+    --bs-navbar-toggler-border-color: none;
+}
+
+.size {
+    --bs-navbar-brand-font-size: 3rem;
+}
+
+.hover:hover {
+    text-decoration-color: cyan;
+}
+
+.bg-image-1 {
+    background: url("{{asset('img/teacher-img.jpg')}}");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-image-2 {
+    background: url(../img/04.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-image-3 {
+    background: url(../img/05.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

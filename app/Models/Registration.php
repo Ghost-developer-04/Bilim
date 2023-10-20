@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
 class Registration extends Model
 {
     use HasFactory;
@@ -22,5 +21,11 @@ class Registration extends Model
     public function lesson(): BelongsTo
     {
         return $this->belongsTo(Lesson::class);
+    }
+
+    public function whatSeason() {
+        if ($this->lesson->season->name == 'Winter') {
+
+        }
     }
 }
