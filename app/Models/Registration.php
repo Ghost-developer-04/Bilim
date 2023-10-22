@@ -25,7 +25,20 @@ class Registration extends Model
 
     public function whatSeason() {
         if ($this->lesson->season->name == 'Winter') {
-
+            $season = '<span class="badge bg-primary-subtle text-success-emphasis">Winter</span>';
+            return $season;
+        }
+        elseif ($this->lesson->season->name == 'Spring') {
+            $season = '<span class="badge bg-success-subtle text-success-emphasis">Spring</span>';
+            return $season;
+        }
+        elseif ($this->lesson->season->name == 'Summer') {
+            $season = '<span class="badge bg-warning-subtle text-success-emphasis">Summer</span>';
+            return $season;
+        }
+        elseif ($this->lesson->season->name == 'Autumn') {
+            $season = '<span class="badge bg-danger-subtle text-success-emphasis">Autumn</span>';
+            return $season;
         }
     }
 }

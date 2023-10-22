@@ -25,8 +25,8 @@ class HomeController extends Controller
             ->get();
 
 
-        $courses = Course::all();
-        $teachers = Teacher::all();
+        $courses = Course::orderBy('name')->get();
+        $teachers = Teacher::orderBy('full_name')->get();
 
         return view('home.index')
             ->with([
