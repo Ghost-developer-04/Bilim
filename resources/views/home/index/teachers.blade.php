@@ -10,7 +10,7 @@
                         <div class="card-body text-center p-2">
                             <img src="{{ asset('img/teacher-img.jpg') }}" class="img-fluid">
                             <div class="mt-3">
-                                <a href="#" class="stretched-link link-dark fw-semibold text-decoration-none">
+                                <a href="{{ route('registrations.index', ['teacher' => $teacher->full_name]) }}" class="stretched-link link-dark fw-semibold text-decoration-none">
                                     {{ $teachers[$i]->first_name }} {{ $teachers[$i]->last_name }}
                                 </a>
                             </div>

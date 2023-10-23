@@ -1,5 +1,5 @@
 @extends('layouts.app)
-@section('title') Registrations | Bilim @endsection
+@section('title')Bilim@endsection
 @section('main')
     <div class="container-xl my-4">
         <div class="text-center text-info h3 mb-3">

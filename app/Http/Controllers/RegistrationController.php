@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Registration;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
@@ -10,7 +11,7 @@ class RegistrationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $request->validate([
             'q' => 'nullable|string|max:30',
@@ -18,6 +19,7 @@ class RegistrationController extends Controller
             'season' => 'nullable|string|max:255',
             'location' => 'nullable|string|max:255',
             'classroom' => 'nullable|string|max:255',
+            'course' => 'nullable|string|max:255',
             'session' => 'nullable|string|max:255',
             'teacher' => 'nullable|string|max:255',
             'sortBy' => 'nullable|string|in:low-to-high, high-to-low, old-to-new'
@@ -29,12 +31,13 @@ class RegistrationController extends Controller
         $f_season = $request->has('season') ? $request->season : null;
         $f_location = $request->has('location') ? $request->location : null;
         $f_classroom = $request->has('classroom') ? $request->classroom : null;
+        $f_course = $request->has('course') ? $request->course : null;
         $f_session = $request->has('session') ? $request->session : null;
         $f_teacher = $request->has('teacher') ? $request->teacher : null;
         $f_sortBy = $request->has('sortBy') ? $request->sortBy : null;
 
 
-        $registration = Registration::when(isset($f_q), function ($query) use ($f_q, $f_q2) {
+        $registrations = Registration::when(isset($f_q), function ($query) use ($f_q, $f_q2) {
             return $query->where(function ($query) use ($f_q, $f_q2) {
                 $query->orWhere('name', 'like', '%' . $f_q . '%');
                 $query->orWhere('slug', 'like', '%' . $f_q . '%');
@@ -44,7 +47,7 @@ class RegistrationController extends Controller
         })
             ->when(isset($f_student), function ($query) use ($f_student) {
                 return $query->whereHas('student', function ($query) use ($f_student) {
-                    $query->where('fullname', $f_student);
+                    $query->where('full_name', $f_student);
                 });
             })
             ->when(isset($f_season), function ($query) use ($f_season) {
@@ -53,18 +56,23 @@ class RegistrationController extends Controller
                 });
             })
             ->when(isset($f_location), function ($query) use ($f_location) {
-                return $query->whereHas('season', function ($query) use ($f_location) {
+                return $query->whereHas('location', function ($query) use ($f_location) {
                     $query->where('slug', $f_location);
                 });
             })
             ->when(isset($f_classroom), function ($query) use ($f_classroom) {
-                return $query->whereHas('season', function ($query) use ($f_classroom) {
+                return $query->whereHas('classroom', function ($query) use ($f_classroom) {
                     $query->where('slug', $f_classroom);
                 });
             })
             ->when(isset($f_session), function ($query) use ($f_session) {
-                return $query->whereHas('season', function ($query) use ($f_session) {
+                return $query->whereHas('session', function ($query) use ($f_session) {
                     $query->where('slug', $f_session);
+                });
+            })
+            ->when(isset($f_teacher), function ($query) use ($f_teacher) {
+                return $query->whereHas('teacher', function ($query) use ($f_teacher) {
+                    $query->where('full_name', $f_teacher);
                 });
             })
             ->when(isset($f_sortBy), function ($query) use ($f_sortBy) {
@@ -80,9 +88,23 @@ class RegistrationController extends Controller
             }, function ($query) {
                 return $query->orderBy('id', 'desc');
             })
-            ->with('season', 'location', 'classroom', 'student', 'course', 'teacher', 'session')
+            ->with('student', 'lesson')
             ->paginate(20)
             ->withQueryString();
+
+        return view('registrations.index')
+            ->with([
+                'registrations' => $registrations,
+                'f_q' => $f_q,
+                'f_student' => $f_student,
+                'f_season' => $f_season,
+                'f_session' => $f_session,
+                'f_location' => $f_location,
+                'f_classroom' => $f_classroom,
+                'f_teacher' => $f_teacher,
+                'f_course' => $f_course,
+                'f_sortBy' => $f_sortBy,
+            ]);
     }
 
 
